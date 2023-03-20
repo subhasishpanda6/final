@@ -17,9 +17,34 @@ if(isset($_POST['reason']) && $_POST['reason']==="accept"){
 if(isset($_POST['reason']) && $_POST['reason']==="reject"){
     require_once("db.php");
     $status = "reject";
+    $donation_status = 'Not donated';
     $donation_id = $_POST['donation_id'];
-    $response = $conn->prepare("UPDATE blood_donate SET status=? WHERE donate_id = ?");
-    $response->bind_param("si",$status,$donation_id);
+    $response = $conn->prepare("UPDATE blood_donate SET status=?,donation_status=? WHERE donate_id = ?");
+    $response->bind_param("ssi",$status,$donation_status,$donation_id);
+    if($response->execute()){
+        echo "ok"; 
+    }
+    $response->close();
+    $conn->close();
+}
+if(isset($_POST['reason']) && $_POST['reason']==="donated"){
+    require_once("db.php");
+    $donation_status = 'donated';
+    $donation_id = $_POST['donation_id'];
+    $response = $conn->prepare("UPDATE blood_donate SET donation_status=? WHERE donate_id = ?");
+    $response->bind_param("si",$donation_status,$donation_id);
+    if($response->execute()){
+        echo "ok"; 
+    }
+    $response->close();
+    $conn->close();
+}
+if(isset($_POST['reason']) && $_POST['reason']==="not_donated"){
+    require_once("db.php");
+    $donation_status = 'Not donated';
+    $donation_id = $_POST['donation_id'];
+    $response = $conn->prepare("UPDATE blood_donate SET donation_status=? WHERE donate_id = ?");
+    $response->bind_param("si",$donation_status,$donation_id);
     if($response->execute()){
         echo "ok"; 
     }
@@ -72,3 +97,4 @@ if(isset($_POST['for'])  && $_POST['for'] === 'need_blood' && $_POST['status'] =
     $conn->close();
    
 }
+

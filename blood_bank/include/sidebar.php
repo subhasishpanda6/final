@@ -166,7 +166,7 @@
              <?php //echo  $active_page ?> 
            <!-- end need Blood -->
         <li class="nav-item">
-                <a class="nav-link <?php if($active_page === 'donate_req'){echo "";}else if($active_page === 'manage_donate') {echo "";}else{echo "collapsed";} ?>" data-bs-target="#blood_donation-nav" data-bs-toggle="collapse" href="#">
+                <a class="nav-link <?php if($active_page === 'donate_req'){echo "";}else if($active_page === 'manage_donate') {echo "";}else if($active_page === 'donation_list') {echo "";}else{echo "collapsed";} ?>" data-bs-target="#blood_donation-nav" data-bs-toggle="collapse" href="#">
                     <i class="bi bi-menu-button-wide"></i><span>Blood Donation</span><i
                         class="bi bi-chevron-down ms-auto"></i>
                 </a>
@@ -174,6 +174,11 @@
                     <li>
                         <a href="donation_request.php" class="<?php echo  $active_page === 'donate_req' ? "active":"" ?>">
                            <span>View Request</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="donation_list.php" class="<?php echo  $active_page === 'donation_list' ? "active":"" ?>">
+                           <span>Blood Donation Lists</span>
                         </a>
                     </li>
                     <li>

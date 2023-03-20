@@ -65,13 +65,15 @@ require_once("../blood_bank/include/sidebar.php");
                                     <th scope="col">Unit(in ml)</th>
                                     <th scope="col">Disease</th>
                                     <th scope="col">Request Status</th>
-                                    <th scope="col" colspan="3">Action</th>
+                                    <th scope="col">Donation Status</th>
+                                    <th scope="col" colspan="2">Action</th>
+                                    <th >view</th>
                                     <!-- <th scope="col">Start Date</th> -->
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
-                                        $donation_response = $conn->query("SELECT * FROM blood_donate INNER JOIN donar ON blood_donate.donar_id = donar.donar_id  WHERE blood_donate.status != 'accept' AND blood_donate.status != 'reject' AND blood_donate.status != 'cancel' ORDER BY blood_donate.donate_id DESC");
+                                        $donation_response = $conn->query("SELECT * FROM blood_donate INNER JOIN donar ON blood_donate.donar_id = donar.donar_id  WHERE blood_donate.status != 'accept' AND blood_donate.status != 'reject' AND blood_donate.status != 'cancel' AND blood_donate.donation_status != 'donated' AND blood_donate.donation_status != 'Not donated' ORDER BY blood_donate.donate_id DESC");
                                         // donation id
                                       
                                         if($conn->affected_rows > 0){
@@ -95,10 +97,11 @@ require_once("../blood_bank/include/sidebar.php");
 
                                     </td>
                                     <td>
-                                        <a href="view_request.php?id=<?php echo "{$donation_row['donate_id']}"?>"
-                                            class="btn btn-primary btn-sm" title="view request"><i
-                                                class="bi bi-eye"></i></a>
+                                        <span class="badge rounded-pill bg-dark"><?= $donation_row['donation_status'] ?>
+                                        </span>
+
                                     </td>
+                                    
                                     <td>
                                         <button class="btn btn-success btn-sm d-accept" title="accepte request" id=""
                                             data-donation_id=<?php echo "{$donation_row['donate_id']}"?>>Accepted</button>
@@ -106,6 +109,11 @@ require_once("../blood_bank/include/sidebar.php");
                                     <td>
                                         <button type="button" class="btn btn-danger btn-sm reject_button" title="reject request" id=""
                                             data-donation_id=<?php echo "{$donation_row['donate_id']}"?>>Rejected</button>
+                                    </td>
+                                    <td>
+                                        <a href="view_request.php?id=<?php echo "{$donation_row['donate_id']}"?>"
+                                            class="btn btn-primary btn-sm" title="view request"><i
+                                                class="bi bi-eye"></i></a>
                                     </td>
                                     <!-- <td>2011-04-19</td> -->
 

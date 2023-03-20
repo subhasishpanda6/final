@@ -245,12 +245,11 @@
     });
   });
 
-
-</script>
-	<script>if ( window.history.replaceState ) {
+  if ( window.history.replaceState ) {
   window.history.replaceState( null, null, window.location.href );
-}</script>
-  </body>
+}
+</script>
+</script>
 
- 
+  </body>
 </html>

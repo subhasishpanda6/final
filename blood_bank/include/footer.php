@@ -1,4 +1,5 @@
-<?php if(!defined("PAGE_ACCESS")){
+<?php 
+if(!defined("PAGE_ACCESS")){
    echo "<script> window.location.href = './' ;</script>";
 } 
 ?>
@@ -67,6 +68,7 @@ $(document).ready(function() {
  
         }
     });
+    
     // need blood
     $(".r-accept").click(function() {
         if (confirm("are you sure")) {
@@ -119,7 +121,54 @@ $(document).ready(function() {
 
         }
     });
-})
+    $(".donated").click(function() {
+        if (confirm("are you sure")) {
+            var value = $(this).attr("data-did"); 
+            
+            $.ajax({
+                url: "update_status.php",
+                type: "POST",
+                data: {
+                    reason: "donated",
+                    donation_id: value
+                },
+                success: function(e) {
+                    location.reload();
+                  
+                }
+            });
+
+        }
+    });
+    $(".not_donated").click(function() {
+        if (confirm("are you sure")) {
+            var value = $(this).attr("data-did"); 
+            
+            $.ajax({
+                url: "update_status.php",
+                type: "POST",
+                data: {
+                    reason: "not_donated",
+                    donation_id: value
+                },
+                success: function(e) {
+                    location.reload();
+                }
+            });
+
+        }
+    });
+});
+
+
+// setInterval(function(){
+//     $("#stock").load("component/stock.php");
+// },1);
+
+
+if ( window.history.replaceState ) {
+  window.history.replaceState( null, null, window.location.href );
+}
 </script>
 
 </body>
