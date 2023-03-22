@@ -1,5 +1,4 @@
 <?php $page="blood_bank";
-
 include_once("include/header.php"); ?>
 <!-- Breadcrumb -->
 <!-- <div class="breadcrumb-bar">
@@ -137,6 +136,7 @@ include_once("include/header.php"); ?>
                                 <a href="blood_available.php" class="blood-bank-item">Blood Avalability</a>
                             </div>
                             <?php
+                            if(isset($_SESSION['patient_id'])){
                             $get_donar_result = $conn->query("SELECT * FROM `donar` WHERE `register_id` = {$_SESSION['patient_id']}");
                             $donar_data = $get_donar_result->fetch_assoc();
                             if($conn->affected_rows > 0){
@@ -144,7 +144,9 @@ include_once("include/header.php"); ?>
                             <div class="col-12 col-lg-3 col-md-4 col-sm-6 ">
                                 <a href="view_blood_bank.php?q=donate" class="blood-bank-item">Donate Blood</a>
                             </div>
-                            <?php }?>
+                            <?php }
+                            }
+                            ?>
                         </div>
                </div>
                 <div class="p-4" style="background-color:white">
