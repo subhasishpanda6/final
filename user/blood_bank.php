@@ -1,4 +1,5 @@
 <?php $page="blood_bank";
+$path = __DIR__;
 include_once("include/header.php"); ?>
 <!-- Breadcrumb -->
 <!-- <div class="breadcrumb-bar">
@@ -127,13 +128,13 @@ include_once("include/header.php"); ?>
                                 }
                             ?>
                             <div class="col-12 col-lg-3 col-md-4 col-sm-6 ">
-                                <a href="view_donar.php" class="blood-bank-item"> Donar List</a>
+                                <a href="blood-bank/view_donar.php" class="blood-bank-item"> Donars List</a>
                             </div>
                             <div class="col-12 col-lg-3 col-md-4 col-sm-6 ">
-                                <a href="view_blood_bank.php?q=need_blood" class="blood-bank-item">Need Blood</a>
+                                <a href="blood-bank/view_blood_bank.php?q=need_blood" class="blood-bank-item">Need Blood</a>
                             </div>
                             <div class="col-12 col-lg-3 col-md-4 col-sm-6 ">
-                                <a href="blood_available.php" class="blood-bank-item">Blood Avalability</a>
+                                <a href="blood-bank/blood_available.php" class="blood-bank-item">Blood Avalability</a>
                             </div>
                             <?php
                             if(isset($_SESSION['patient_id'])){
@@ -142,7 +143,7 @@ include_once("include/header.php"); ?>
                             if($conn->affected_rows > 0){
                             ?>
                             <div class="col-12 col-lg-3 col-md-4 col-sm-6 ">
-                                <a href="view_blood_bank.php?q=donate" class="blood-bank-item">Donate Blood</a>
+                                <a href="blood-bank/view_blood_bank.php?q=donate" class="blood-bank-item">Donate Blood</a>
                             </div>
                             <?php }
                             }

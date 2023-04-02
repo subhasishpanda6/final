@@ -1,11 +1,33 @@
 <?php
 session_start();
-include_once("../app/db/db.php");
+ob_start();
+// return root of this project
+function getActualFilePath(){
+	$path = __DIR__;
+    $startPoint = strpos($path,"\user");
+    $endPoint = intval($startPoint)+1;
+    return substr($path,0,$endPoint);
+}
+
+// return userLocation
+function userLocation(){
+	$path = __DIR__;
+    $startPoint = strpos($path,"\include");
+    $endPoint = intval($startPoint)+1;
+    return substr($path,0,$endPoint);
+}
+
+// ------------------------------
+include_once(getActualFilePath()."app/db/db.php");
+include_once(getActualFilePath()."app/function.php");
+define('CSS_PATH', 'assets/css/style.css');
 $res;
 if(isset($_SESSION['patient_name'])){
 	$get_patient_image = $conn->query("SELECT * FROM patient_registration WHERE id= {$_SESSION['patient_id']} ");
 	$res = $get_patient_image->fetch_object();
 }
+// echo $path;
+getPath($path);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,21 +37,27 @@ if(isset($_SESSION['patient_name'])){
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0" />
 	<title>Doccure</title>
+	<?php
+	// echo "<pre>";
+	// print_r($_SERVER);
+	
+	?>
 
 	<!-- Favicons -->
-	<link type="image/x-icon" href="assets/img/favicon.png" rel="icon" />
+<link type="image/x-icon" href="<?php echo BASE_URL ?>assets/img/favicon.png" rel="icon" />
 
-	<!-- Bootstrap CSS -->
-	<link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="<?php echo BASE_URL ?>assets/css/bootstrap.min.css" />
 
-	<!-- Fontawesome CSS -->
-	<link rel="stylesheet" href="assets/plugins/fontawesome/css/fontawesome.min.css" />
-	<link rel="stylesheet" href="assets/plugins/fontawesome/css/all.min.css" />
+<!-- Fontawesome CSS -->
+<link rel="stylesheet" href="<?php echo BASE_URL ?>assets/plugins/fontawesome/css/fontawesome.min.css" />
+<link rel="stylesheet" href="<?php echo BASE_URL ?>assets/plugins/fontawesome/css/all.min.css" />
 
-	<!-- Main CSS -->
-	<link rel="stylesheet" href="assets/css/style.css" />
-	<link rel="stylesheet" href="../app/vendor/css/response.css" />
-	<script src="../app/vendor/js/response.js"></script>
+<!-- Main CSS -->
+<link rel="stylesheet" href="<?php echo BASE_URL ?>assets/css/style.css" />
+
+<!-- <link rel="stylesheet" href="<?php //echo BASE_URL ?>assets/vendor/css/response.css" />
+<script src="<?php //echo BASE_URL ?>assets/vendor/js/response.js"></script> -->
 	
 
 	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -57,18 +85,18 @@ if(isset($_SESSION['patient_name'])){
 						</span>
 					</a>
 					<a href="./" class="navbar-brand logo">
-						<img src="assets/img/logo.png" class="img-fluid" alt="Logo" />
+						<img src="<?php echo BASE_URL ?>assets/img/logo.png" class="img-fluid" alt="Logo" />
 					</a>
 				</div>
 				<div class="main-menu-wrapper">
 					<div class="menu-header">
 						<a href="./" class="menu-logo">
-							<img src="assets/img/logo.png" class="img-fluid" alt="Logo" />
+							<img src="<?php echo BASE_URL ?>assets/img/logo.png" class="img-fluid" alt="Logo" />
 						</a>
 						<!-- ************** -->
 						<div class="user-header mobile-user-menu">
 							<div class="avatar avatar-sm">
-								<img src="assets/img/patients/patient.jpg" alt="User Image" class="avatar-img rounded-circle">
+								<img src="<?php echo BASE_URL ?>assets/img/patients/patient.jpg" alt="User Image" class="avatar-img rounded-circle">
 							</div>
 							<div class="user-text">
 								<h6><?php if(isset($_SESSION['patient_name'])){
@@ -87,15 +115,21 @@ if(isset($_SESSION['patient_name'])){
 						<li class="<?php if (isset($page) && $page === 'home') {
 										echo "active";
 									} ?>">
-							<a href="./">Home</a>
+							<a href="<?= $home_link; ?>">Home</a>
+							
 						</li>
-						<li class="has-submenu">
+						<li class="<?php if (isset($page) && $page === 'show-doctor') {
+										echo "active";
+									} ?>">
+								<a href="show_doctor.php">Doctors</a>
+						</li>
+						<!-- <li class="has-submenu">
 							<a href="#">Doctors <i class="fas fa-chevron-down"></i></a>
 							<ul class="submenu">
 								<li><a href="../doctor/index.php">Doctor </a></li>
 
 							</ul>
-						</li>
+						</li> -->
 						<li class="has-submenu">
 							<a href="#">Patients <i class="fas fa-chevron-down"></i></a>
 							<ul class="submenu">
@@ -114,7 +148,7 @@ if(isset($_SESSION['patient_name'])){
 						<li class="<?php if (isset($page) && $page === 'blood_bank') {
 										echo "active";
 									} ?>">
-							<a href="blood_bank.php">Blood Bank</a>
+							<a href="<?= $nav_blood_bank; ?>">Blood Bank</a>
 						</li>
 
 					</ul>
@@ -124,13 +158,13 @@ if(isset($_SESSION['patient_name'])){
 						<li class="nav-item dropdown has-arrow logged-item">
 							<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
 								<span class="user-img">
-									<span class="mr-3 user-name"><?php echo "Welcome " . ucfirst($_SESSION['patient_name']); ?></span><img class="rounded-circle" src='<?php if($res->image){ echo "profile_pic/$res->image";}else{"profile_pic/no_profile.png";} ?>' width="31" alt="<?php echo  ucfirst($_SESSION['patient_name']); ?>">
+									<span class="mr-3 user-name"><?php echo "Welcome " . ucfirst($_SESSION['patient_name']); ?></span><img class="rounded-circle" src='<?php if($res->image){ echo "$profile/$res->image";}else{"$profile/no_profile.png";} ?>' width="31" alt="<?php echo  ucfirst($_SESSION['patient_name']); ?>">
 								</span>
 							</a>
 							<div class="dropdown-menu dropdown-menu-right">
-								<a class="dropdown-item" href="patient_dashboard.php">Dashboard</a>
+								<a class="dropdown-item" href="<?= $dashboard_link; ?>">Dashboard</a>
 								<a class="dropdown-item" href="profile-settings.html">Profile Settings</a>
-								<a class="dropdown-item" href="logout.php">Logout</a>
+								<a class="dropdown-item" href="<?= $logout_link; ?>">Logout</a>
 							</div>
 						</li>
 					<?php } else { ?>

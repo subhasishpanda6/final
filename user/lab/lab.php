@@ -289,7 +289,7 @@ $row2=mysqli_fetch_assoc($row1);
 										<a href="patient-profile.html" class="booking-doc-img">
 											<?php 
 											if(!$row['image'])
-											echo "<img src='../../lab/profile_pic/".'no_profile.png'."' >";
+											echo "<img src='../lab/profile_pic/".'no_profile.png'."' >";
 											else	
 
 											echo "<img src='../../lab/profile_pic/".$row['image']."' >"; 

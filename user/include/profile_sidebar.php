@@ -1,3 +1,4 @@
+
 <div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
 						<div class="profile-sidebar">
 
@@ -6,10 +7,10 @@
 									<a href="#" class="booking-doc-img">
 										<?php
 										if (!$row2['image'])
-											echo "<img src='profile_pic/" . 'no_profile.png' . "' >";
+											echo "<img src='$profile/" . 'no_profile.png' . "' >";
 										else
 
-											echo "<img src='profile_pic/" . $row2['image'] . "' >";
+											echo "<img src='$profile/" . $row2['image'] . "' >";
 
 										?>
 									</a>
@@ -30,13 +31,13 @@
 								<nav class="dashboard-menu">
 									<ul>
 										<li class="">
-											<a href="patient-dashboard.html">
+											<a href="<?= $dashboard_link; ?>">
 												<i class="fas fa-columns"></i>
 												<span>Dashboard</span>
 											</a>
 										</li>
 										<li>
-											<a href="doctor/show_doctor.php">
+											<a href="<?= $doctor_link; ?>">
 												<i class="fas fa-bookmark"></i>
 												<span>Doctors</span>
 											</a>
@@ -44,27 +45,27 @@
 										<li class="<?php if (isset($page) && $page === 'blood_bank_dashboard') {
 										echo "active";
 									} ?>">
-											<a href="blood_bank_dashboard.php">
+											<a href="<?= $blood_bank_link; ?>">
 												<i class="fas fa-bookmark"></i>
 												<span>Blood Bank</span>
 											</a>
 										</li>
 										<li>
-											<a href="lab/lab.php">
+											<a href="<?= $pathlab_link; ?>">
 												<i class="fas fa-comments"></i>
 												<span>PathLab</span>
 												<small class="unread-msg">23</small>
 											</a>
 										</li>
 										<li>
-											<a href="patient_profile.php">
+											<a href="<?= $profile_settings; ?>">
 												<i class="fas fa-user-cog"></i>
 												<span>Profile Settings</span>
 											</a>
 										</li>
 
 										<li>
-											<a href="logout.php">
+											<a href="<?= $logout_link; ?>">
 												<i class="fas fa-sign-out-alt"></i>
 												<span>Logout</span>
 											</a>

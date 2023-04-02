@@ -9,7 +9,7 @@
                 <!-- Footer Widget -->
                 <div class="footer-widget footer-about">
                   <div class="footer-logo">
-                    <img src="assets/img/footer-logo.png" alt="logo" />
+                    <img src="<?php echo BASE_URL ?>assets/img/footer-logo.png" alt="logo" />
                   </div>
                   <div class="footer-about-content">
                     <p>
@@ -191,20 +191,20 @@
     <!-- /Main Wrapper -->
 
     <!-- jQuery -->
-    <script src="assets/js/jquery.min.js"></script>
+    <script src="<?php echo BASE_URL ?>assets/js/jquery.min.js"></script>
 
     <!-- Bootstrap Core JS -->
-    <script src="assets/js/popper.min.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="<?php echo BASE_URL ?>assets/js/popper.min.js"></script>
+    <script src="<?php echo BASE_URL ?>assets/js/bootstrap.min.js"></script>
     <!-- Sticky Sidebar JS -->
-    <script src="assets/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
-        <script src="assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
+    <script src="<?php echo BASE_URL ?>assets/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
+        <script src="<?php echo BASE_URL ?>assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
 
     <!-- Slick JS -->
-    <script src="assets/js/slick.js"></script>
+    <script src="<?php echo BASE_URL ?>assets/js/slick.js"></script>
 
     <!-- Custom JS -->
-    <script src="assets/js/script.js"></script>
+    <script src="<?php echo BASE_URL ?>assets/js/script.js"></script>
   <script>
   $(document).ready(function() {
     $(".cancel_req").click(function() {

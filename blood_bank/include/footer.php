@@ -129,7 +129,7 @@ $(document).ready(function() {
                 url: "update_status.php",
                 type: "POST",
                 data: {
-                    reason: "donated",
+                    reason: "donated", 
                     donation_id: value
                 },
                 success: function(e) {

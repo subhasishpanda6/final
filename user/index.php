@@ -1,6 +1,6 @@
 
 <?php $page = "home";
-
+$path = __DIR__;
 include_once("include/header.php") ?>
       <!-- Home Banner -->
       <section class="section section-search">

@@ -1,4 +1,6 @@
-<?php include_once("include/header.php");
+<?php 
+$path = __DIR__;
+include_once("include/header.php");
 // echo "<pre>";
 // print_r($conn);
 if (isset($_SESSION) && isset($_SESSION['patient_id'])) {
