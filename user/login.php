@@ -80,7 +80,7 @@ if (isset($_POST["submit"])) {
 		//mysql_select_db('user_registration') or die("cannot select DB");
 		// $con= mysqli_connect("localhost","root","","hcm","3306");
 
-		$query = $conn->query("SELECT * FROM patient_registration WHERE email='" . $email . "' AND password='" . $password . "'");
+		$query = $conn->query("SELECT * FROM patient_registration WHERE email= '$email'  AND password = '$password'");
 		$numrows = mysqli_num_rows($query);
 		if ($numrows != 0) {
 			while ($row = mysqli_fetch_assoc($query)) {

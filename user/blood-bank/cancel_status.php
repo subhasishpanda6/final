@@ -1,8 +1,14 @@
 <?php
 session_start();
+function getActualFilePath(){
+	$path = __DIR__;
+    $startPoint = strpos($path,"\user");
+    $endPoint = intval($startPoint)+1;
+    return substr($path,0,$endPoint);
+}
+include_once(getActualFilePath()."app/db/db.php");
 if(isset($_POST['reason']) && $_POST['reason']==="cancel"){
 
-    require_once("db.php");
     $status = "cancel";
     $donation_id = $_POST['donation_id'];
     $response = $conn->prepare("UPDATE blood_donate SET status=? WHERE donate_id = ?");
@@ -15,7 +21,6 @@ if(isset($_POST['reason']) && $_POST['reason']==="cancel"){
 }
 if(isset($_POST['for']) && $_POST['status']==="cancel"){
 
-    require_once("db.php");
     $status = "cancel";
     $request_id = $_POST['request_id'];
     $response = $conn->prepare("UPDATE need_blood SET request_status=? WHERE request_id = ?");

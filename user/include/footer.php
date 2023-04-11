@@ -237,7 +237,6 @@
                 },
                 success: function(e) {
                     location.reload();
-                    
                 }
             });
 

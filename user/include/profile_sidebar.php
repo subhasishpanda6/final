@@ -15,7 +15,7 @@
 										?>
 									</a>
 									<div class="profile-det-info">
-										<h3> <?= $_SESSION['patient_name']; ?></h3>
+										<h3> <?= ucfirst($_SESSION['patient_name']); ?></h3>
 
 										<div class="patient-details">
 											<h5 class="mb-0"><?= $_SESSION['patient']; ?></h5>

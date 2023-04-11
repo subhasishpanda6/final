@@ -94,6 +94,7 @@ function bloodBank(){
         $GLOBALS['home_link'] = "../";
         $GLOBALS['nav_blood_bank'] = "../blood_bank.php";
         $GLOBALS['profile'] = "../profile_pic";
+        $GLOBALS['blood_bank_link'] = "blood_bank_dashboard.php";
 }
 
 

@@ -9,8 +9,8 @@ function getActualFilePath(){
     return substr($path,0,$endPoint);
 }
 
-// return userLocation
-function userLocation(){
+// return for userLocation only
+function userLocation(){ 
 	$path = __DIR__;
     $startPoint = strpos($path,"\include");
     $endPoint = intval($startPoint)+1;
@@ -56,8 +56,8 @@ getPath($path);
 <!-- Main CSS -->
 <link rel="stylesheet" href="<?php echo BASE_URL ?>assets/css/style.css" />
 
-<!-- <link rel="stylesheet" href="<?php //echo BASE_URL ?>assets/vendor/css/response.css" />
-<script src="<?php //echo BASE_URL ?>assets/vendor/js/response.js"></script> -->
+<link rel="stylesheet" href="<?php echo BASE_URL ?>assets/vendor/css/response.css" />
+<script src="<?php echo BASE_URL ?>assets/vendor/js/response.js"></script> 
 	
 
 	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->

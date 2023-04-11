@@ -3,7 +3,7 @@ $path = __DIR__;
 include_once("../include/header.php");
  $check_donar = $conn->query("SELECT * FROM donar WHERE register_id = {$_SESSION['patient_id']}");
  if($conn->affected_rows > 0){
-    echo "<script>window.location.href='blood_bank.php'</script>";
+    echo "<script>window.location.href='../blood_bank.php'</script>";
  }
 ?>
 <div class="content">
@@ -62,13 +62,13 @@ include_once("../include/header.php");
                                             <input class="form-control" type="date" name="donar_dob">
                                         </div>
                                     </div>
-                                    <div class="col-md-6 col-sm-12">
+                                    <!-- <div class="col-md-6 col-sm-12">
                                         <div class="form-group card-label">
                                             <label>Location <span class="text-danger">*</span></label>
                                             <input class="form-control" type="text" name="donar_location" value="<?= $row_data->location ?>">
                                           
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <div class="col-md-6 col-sm-12">
                                         <div class="form-group card-label">
                                             <label>Pincode <span class="text-danger">*</span></label>
@@ -110,11 +110,11 @@ include_once("../include/header.php");
                 </div>
                 <?php
                 if(isset($_POST['register'])){
-                    if(!empty($_POST['donar_name']) &&  !empty($_POST['gender']) && !empty($_POST['donar_dob']) && !empty($_POST['donar_location']) && !empty($_POST['donar_pincode']) && !empty($_POST['donar_blood_group']) && !empty($_POST['donar_address'])){
+                    if(!empty($_POST['donar_name']) &&  !empty($_POST['gender']) && !empty($_POST['donar_dob'])  && !empty($_POST['donar_pincode']) && !empty($_POST['donar_blood_group']) && !empty($_POST['donar_address'])){
                         // $blood_group = $conn->query("SELECT blood_group_name FROM blood_group WHERE blood_group_id = {$_POST['donar_blood_group']}");
                         // $blood_gr_name = $blood_group->fetch_object()->blood_group_name;
-                        $register_donar = $conn->prepare("INSERT INTO donar SET register_id = ?, donar_name = ?,donar_email=?,donar_gender=?,donar_dob=?,donar_location=?,donar_phone=?,donar_pincode=?,donar_address=?,donar_blood_group_id=?");
-                        $register_donar->bind_param("issssssssi",$_SESSION['patient_id'],$_POST['donar_name'],$_POST['donar_email'],$_POST['gender'],$_POST['donar_dob'],$_POST['donar_location'],$_POST['donar_phone'],$_POST['donar_pincode'],$_POST['donar_address'],$_POST['donar_blood_group']);
+                        $register_donar = $conn->prepare("INSERT INTO donar SET register_id = ?, donar_name = ?,donar_email=?,donar_gender=?,donar_dob=?,donar_phone=?,donar_pincode=?,donar_address=?,donar_blood_group_id=?");
+                        $register_donar->bind_param("isssssssi",$_SESSION['patient_id'],$_POST['donar_name'],$_POST['donar_email'],$_POST['gender'],$_POST['donar_dob'],$_POST['donar_phone'],$_POST['donar_pincode'],$_POST['donar_address'],$_POST['donar_blood_group']);
                         if($register_donar->execute()){
                             echo "<script>success('success')</script>";
                         }else{

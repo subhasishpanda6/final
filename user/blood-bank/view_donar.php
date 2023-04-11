@@ -28,6 +28,8 @@ function getAge($dob){
             $get_donars = $conn->query("SELECT * FROM donar");
             if($get_donars->num_rows > 0){ 
                 while($row_donar_data = $get_donars->fetch_object()){
+                    $query_result = $conn->query("SELECT blood_group_name FROM blood_group WHERE blood_group_id = $row_donar_data->donar_blood_group_id");
+                    $result = $query_result->fetch_object();
                 ?>
               <div class="col-md-6 col-lg-3 col-xl-3">
                 <div class="card widget-profile pat-widget-profile">
@@ -35,7 +37,7 @@ function getAge($dob){
                         <div class="pro-widget-content">
                             <div class="profile-info-widget">
                                 <a href="patient-profile.html" class="booking-doc-img">
-                                    <img src="profile_pic/no_profile.png" alt="User Image">
+                                    <img src="<?= $profile?>/no_profile.png" alt="User Image">
                                 </a>
                                 <div class="profile-det-info">
                                     <h3><a href="patient-profile.html"><?= $row_donar_data->donar_name ?></a></h3>
@@ -48,13 +50,14 @@ function getAge($dob){
                             </div>
                         </div>
                         <div class="patient-info">
+                            
                             <ul>
                                 <li>Email <span><?= $row_donar_data->donar_email ?></span></li>
                                 <li>Phone <span>+91 <?= $row_donar_data->donar_phone ?></span></li>
                                 <li>Age <span><?= getAge($row_donar_data->donar_dob) ?> Years, <?= ucfirst($row_donar_data->donar_gender) ?></span></li>
                                 <li>Pincode <span><?= $row_donar_data->donar_pincode ?></span></li>
                                 <li>Address <span><address><?= $row_donar_data->donar_address ?></address></span></li>
-                                <li >Blood Group <span class="text-primary"><strong><?= strtoupper($row_donar_data->donar_blood_group) ?></strong></span></li>
+                                <li >Blood Group <span class="text-primary"><strong><?= strtoupper($result->blood_group_name) ?></strong></span></li>
                             </ul>
                             
                         </div>

@@ -17,7 +17,21 @@ include_once("../include/header.php");
                             <div class="info-widget">
 
                                 <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="form-group card-label">
+                                            <label>Blood Group <span class="text-danger">*</span></label>
+                                            <select name="blood_group" id="" class="form-control">
+                                                <option value="">Select Blood Group</option>
+                                                <?php //$get_blood_group = $conn->query("SELECT * FROM blood_group");
+                                                $blood_available_res = $conn->query("SELECT * FROM blood_bank_stock INNER JOIN blood_group ON blood_group.blood_group_id = blood_bank_stock.blood_group_id WHERE blood_bank_stock.user_id = {$_GET['bank']}");
 
+                                                while ($row = $blood_available_res->fetch_assoc()) {
+                                                ?>
+                                                    <option value="<?= $row['blood_group_id'] ?>"><?= $row['blood_group_name'] ?></option>
+                                                <?php } ?>
+                                            </select>
+                                        </div>
+                                    </div>
                                     <div class="col-md-6 col-sm-12">
                                         <div class="form-group card-label">
                                             <label>When do you want? <span class="text-danger">*</span></label>
@@ -26,8 +40,8 @@ include_once("../include/header.php");
                                     </div>
                                     <div class="col-md-6 col-sm-12">
                                         <div class="form-group card-label">
-                                            <label>Location <span class="text-danger">*</span></label>
-                                            <input class="form-control" type="text" name="location" placeholder="Enter Location">
+                                            <label>Phone <span class="text-danger">*</span></label>
+                                            <input class="form-control" type="text" name="phone" placeholder="Enter Phone Number">
 
                                         </div>
                                     </div>
@@ -63,7 +77,7 @@ include_once("../include/header.php");
                                         <button type="submit" class="btn btn-primary submit-btn" name="request">Request</button>
                                     <?php } else { ?>
                                         <a href="login.php" class="btn btn-primary submit-btn">Request</a>
-                                    <?php $_SESSION['req_page'] = "request_blood.php?bank={$_GET['bank']}&blood={$_GET['blood']}";
+                                    <?php $_SESSION['req_page'] = "request_blood.php?bank={$_GET['bank']}";
                                     } ?>
                                 </div>
                             </div>
@@ -76,11 +90,11 @@ include_once("../include/header.php");
                 </div>
                 <?php
                 if (isset($_POST['request'])) {
-                    if (!empty($_POST['date']) && !empty($_POST['location']) && !empty($_POST['pincode']) && !empty($_POST['address']) && !empty($_POST['unit']) && !empty($_POST['reason'])) {
-                        $blood_group = $conn->query("SELECT * FROM blood_group WHERE blood_group_id = {$_GET['blood']}");
-                        $blood_gr_name = $blood_group->fetch_object()->blood_group_name;
-                        $request_insert = $conn->prepare("INSERT INTO need_blood SET patient_id = ?,blood_group=?,blood_bank=?,no_of_unit = ?,delivery_date=?,location=?,pincode=?,address=?,reason=?");
-                        $request_insert->bind_param("isiisssss", $_SESSION['patient_id'],  $blood_gr_name,$_GET['bank'], $_POST['unit'], $_POST['date'], $_POST['location'], $_POST['pincode'], $_POST['address'], $_POST['reason']);
+                    if (!empty($_POST['date']) && !empty($_POST['phone']) && !empty($_POST['blood_group'])  && !empty($_POST['pincode']) && !empty($_POST['address']) && !empty($_POST['unit']) && !empty($_POST['reason'])) {
+                        // $blood_group = $conn->query("SELECT * FROM blood_group WHERE blood_group_id = {$_GET['blood']}");
+                        // $blood_gr_name = $blood_group->fetch_object()->blood_group_name;
+                        $request_insert = $conn->prepare("INSERT INTO need_blood SET patient_id = ?,blood_group=?,blood_bank=?,no_of_unit = ?,phone=?,delivery_date=?,pincode=?,address=?,reason=?");
+                        $request_insert->bind_param("iiiisssss", $_SESSION['patient_id'],  $_POST['blood_group'], $_GET['bank'], $_POST['unit'],$_POST['phone'], $_POST['date'],  $_POST['pincode'], $_POST['address'], $_POST['reason']);
                         if ($request_insert->execute()) {
                             echo "<script>success('successfully requested')</script>";
                         } else {

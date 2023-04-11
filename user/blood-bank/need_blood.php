@@ -40,8 +40,8 @@ include_once("../include/header.php");
                                     </div>
                                     <div class="col-md-6 col-sm-12">
                                         <div class="form-group card-label">
-                                            <label>Location <span class="text-danger">*</span></label>
-                                            <input class="form-control" type="text" name="location" placeholder="Enter Location">
+                                            <label>Phone <span class="text-danger">*</span></label>
+                                            <input class="form-control" type="text" name="phone" placeholder="Enter Phone Number">
 
                                         </div>
                                     </div>
@@ -89,7 +89,7 @@ include_once("../include/header.php");
                 </div>
                 <?php
                 if (isset($_POST['request'])) {
-                    if (!empty($_POST['date']) && !empty($_POST['location']) && !empty($_POST['pincode']) && !empty($_POST['blood_group']) && !empty($_POST['address']) && !empty($_POST['unit']) && !empty($_POST['reason'])) {
+                    if (!empty($_POST['date']) && !empty($_POST['phone']) && !empty($_POST['pincode']) && !empty($_POST['blood_group']) && !empty($_POST['address']) && !empty($_POST['unit']) && !empty($_POST['reason'])) {
                         // $blood_group = $conn->query("SELECT * FROM blood_group WHERE blood_group_id = {$_POST['blood_group']}");
                         // $blood_gr_name = $blood_group->fetch_object()->blood_group_name;
                         // get blood bank
@@ -97,8 +97,8 @@ include_once("../include/header.php");
                         // $blood_bank_result= $get_blood_bank->fetch_assoc();
                         // $blood_bank = $blood_bank_result['blood_bank_name'];
 
-                        $request_insert = $conn->prepare("INSERT INTO need_blood SET patient_id = ?,blood_group=?,blood_bank=?,no_of_unit = ?,delivery_date=?,location=?,pincode=?,address=?,reason=?");
-                        $request_insert->bind_param("iiiisssss", $_SESSION['patient_id'],  $_POST['blood_group'],$_GET['bank'],$_POST['unit'], $_POST['date'], $_POST['location'], $_POST['pincode'], $_POST['address'],$_POST['reason']);
+                        $request_insert = $conn->prepare("INSERT INTO need_blood SET patient_id = ?,blood_group=?,blood_bank=?,no_of_unit = ?,delivery_date=?,phone=?,pincode=?,address=?,reason=?");
+                        $request_insert->bind_param("iiiisssss", $_SESSION['patient_id'],  $_POST['blood_group'],$_GET['bank'],$_POST['unit'], $_POST['date'], $_POST['phone'], $_POST['pincode'], $_POST['address'],$_POST['reason']);
                         if ($request_insert->execute()) {
                             echo "<script>success('successfully requested')</script>";
                         } else {
