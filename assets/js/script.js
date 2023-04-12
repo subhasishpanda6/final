@@ -298,86 +298,109 @@ Version      : 1.0
 	
 	// Circle Progress Bar
 	
-	function animateElements() {
-		$('.circle-bar1').each(function () {
-			var elementPos = $(this).offset().top;
-			var topOfWindow = $(window).scrollTop();
-			var percent = $(this).find('.circle-graph1').attr('data-percent');
-			var animate = $(this).data('animate');
-			if (elementPos < topOfWindow + $(window).height() - 30 && !animate) {
-				$(this).data('animate', true);
-				$(this).find('.circle-graph1').circleProgress({
-					value: percent / 100,
-					size : 400,
-					thickness: 30,
-					fill: {
-						color: '#da3f81'
-					}
-				});
-			}
-		});
-		$('.circle-bar2').each(function () {
-			var elementPos = $(this).offset().top;
-			var topOfWindow = $(window).scrollTop();
-			var percent = $(this).find('.circle-graph2').attr('data-percent');
-			var animate = $(this).data('animate');
-			if (elementPos < topOfWindow + $(window).height() - 30 && !animate) {
-				$(this).data('animate', true);
-				$(this).find('.circle-graph2').circleProgress({
-					value: percent / 100,
-					size : 400,
-					thickness: 30,
-					fill: {
-						color: '#68dda9'
-					}
-				});
-			}
-		});
-		$('.circle-bar3').each(function () {
-			var elementPos = $(this).offset().top;
-			var topOfWindow = $(window).scrollTop();
-			var percent = $(this).find('.circle-graph3').attr('data-percent');
-			var animate = $(this).data('animate');
-			if (elementPos < topOfWindow + $(window).height() - 30 && !animate) {
-				$(this).data('animate', true);
-				$(this).find('.circle-graph3').circleProgress({
-					value: percent / 100,
-					size : 400,
-					thickness: 30,
-					fill: {
-						color: '#1b5a90'
-					}
-				});
-			}
-		});
-	}	
+	// function animateElements() {
+	// 	$('.circle-bar1').each(function () {
+	// 		var elementPos = $(this).offset().top;
+	// 		var topOfWindow = $(window).scrollTop();
+	// 		var percent = $(this).find('.circle-graph1').attr('data-percent');
+	// 		var animate = $(this).data('animate');
+	// 		if (elementPos < topOfWindow + $(window).height() - 30 && !animate) {
+	// 			$(this).data('animate', true);
+	// 			$(this).find('.circle-graph1').circleProgress({
+	// 				value: percent / 100,
+	// 				size : 400,
+	// 				thickness: 30,
+	// 				fill: {
+	// 					color: '#da3f81'
+	// 				}
+	// 			});
+	// 		}
+	// 	});
+	// 	$('.circle-bar2').each(function () {
+	// 		var elementPos = $(this).offset().top;
+	// 		var topOfWindow = $(window).scrollTop();
+	// 		var percent = $(this).find('.circle-graph2').attr('data-percent');
+	// 		var animate = $(this).data('animate');
+	// 		if (elementPos < topOfWindow + $(window).height() - 30 && !animate) {
+	// 			$(this).data('animate', true);
+	// 			$(this).find('.circle-graph2').circleProgress({
+	// 				value: percent / 100,
+	// 				size : 400,
+	// 				thickness: 30,
+	// 				fill: {
+	// 					color: '#68dda9'
+	// 				}
+	// 			});
+	// 		}
+	// 	});
+	// 	$('.circle-bar3').each(function () {
+	// 		var elementPos = $(this).offset().top;
+	// 		var topOfWindow = $(window).scrollTop();
+	// 		var percent = $(this).find('.circle-graph3').attr('data-percent');
+	// 		var animate = $(this).data('animate');
+	// 		if (elementPos < topOfWindow + $(window).height() - 30 && !animate) {
+	// 			$(this).data('animate', true);
+	// 			$(this).find('.circle-graph3').circleProgress({
+	// 				value: percent / 100,
+	// 				size : 400,
+	// 				thickness: 30,
+	// 				fill: {
+	// 					color: '#1b5a90'
+	// 				}
+	// 			});
+	// 		}
+	// 	});
+	// }	
 	
-	if($('.circle-bar').length > 0) {
-		animateElements();
-	}
-	$(window).scroll(animateElements);
+	// if($('.circle-bar').length > 0) {
+	// 	animateElements();
+	// }
+	// $(window).scroll(animateElements);
 	// 
 
+	$(".tab-menu").on("click",function(){
+		var tabOption = $(this).data("tab_option");
+		if(tabOption === "need_blood"){
+			ChangeUrl( 'blood_bank_dashboard.php?tab=need_blood');
+
+		}else{
+			ChangeUrl( 'blood_bank_dashboard.php?tab=blood_donation');
+		}
+		// getParamValues();
+	});
 	
+	function ChangeUrl( url) {
+		if (typeof (history.pushState) != "undefined") {
+			// var obj = { Url: url };
+            history.pushState("", "", url);
+        }
+
+    }
+
+	function getParamValues(){
+		// console.log(window.location.search);
+		var meyKeyValues= window.location.search;
+		var urlParam = new URLSearchParams(meyKeyValues);
+		var paramValue = urlParam.get('tab');
+		return paramValue;
+	}
+
+	// function activeTab(tab){
+	// }
+	// $(".tab-menu").on("click",function(){
+	// 	var tabOption = $(this).data("tab_option");
+	// 	var meyKeyValues= window.location.search;
+	// 	var urlParam = new URLSearchParams(meyKeyValues);
+	// 	var paramValue = urlParam.get('tab');
+	// 	if(paramValue === "need_blood"){
+	// 		console.log(this);
+	// 	}else{
+	// 		ChangeUrl( 'blood_bank_dashboard.php?tab=blood_donation');
+	// 		console.log(this);
+	// 	}
+	// })
 	
 	
 })(jQuery);
 
-// $('.tabMenu').on("click",function(){
-// 	var a = $(this).data("tab-option");
-// 	// var b = $(this).val;
-// 	console.log(this);
-// 	if(a === "dashboard"){
-// 		if($(this).hasClass('active')){
-// 			$(this).removeClass("active");
-// 			console.log("Yes active")
-// 		}else if($(this).hasClass('active') === false){
-// 			// $(this).addClass("");
-// 			console.log("No active")
-// 			$(this).addClass("active");
-// 		}
-		
-// 	}
 
-	
-});

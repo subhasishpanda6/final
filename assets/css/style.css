@@ -6829,6 +6829,11 @@ input[type=number]::-webkit-outer-spin-button {
 	top: 10px;
 	transition: all .3s ease-in-out;
 }
-
+@media (min-width: 992px){
+.col-md-12.col-lg-2.sumery {
+    flex: 1 0 16.666667%;
+    max-width: 20.666667%;
+}
+}
 
 

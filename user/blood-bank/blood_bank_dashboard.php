@@ -17,6 +17,15 @@ if ($conn->affected_rows > 0) {
 // echo "<pre>";
 // print_r($conn);
 // die;
+$need_blood_tab=null;
+$blood_donation_tab=null;
+if(empty($_GET['tab'])){
+    $need_blood_tab = "active";
+}else if($_GET['tab'] === "need_blood"){
+    $need_blood_tab = "active";
+}else if($_GET['tab'] === "blood_donation"){
+    $blood_donation_tab ="active";
+}
 
 ?>
 <!-- /Header -->
@@ -56,48 +65,51 @@ if ($conn->affected_rows > 0) {
                     <div class="col-md-12">
                         <div class="card dash-card">
                             <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-12 col-lg-4">
-                                        <div class="dash-widget dct-border-rht">
-                                            <div class="circle-bar circle-bar1">
-                                                <div class="circle-graph1" data-percent="75">
-                                                    <img src="assets/img/icon-01.png" class="img-fluid" alt="patient">
-                                                </div>
-                                            </div>
+                                <div class="row text-center">
+                                    <div class="col-md-12 col-lg-2 sumery">
+                                        <div class="dash-widget ">
                                             <div class="dash-widget-info">
-                                                <h6>Total Patient</h6>
-                                                <h3>1500</h3>
-                                                <p class="text-muted">Till Today</p>
+                                                <h6>Total Requests</h6>
+                                                <h3 class="total">1500</h3>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div class="col-md-12 col-lg-4">
-                                        <div class="dash-widget dct-border-rht">
-                                            <div class="circle-bar circle-bar2">
-                                                <div class="circle-graph2" data-percent="65">
-                                                    <img src="assets/img/icon-02.png" class="img-fluid" alt="Patient">
-                                                </div>
-                                            </div>
+                                    <div class="col-md-12 col-lg-2 sumery">
+                                        <div class="dash-widget">                                           
                                             <div class="dash-widget-info">
-                                                <h6>Today Patient</h6>
-                                                <h3>160</h3>
-                                                <p class="text-muted">06, Nov 2019</p>
+                                                <h6>Pending Requests</h6>
+                                                <h3 class="pending">160</h3>
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div class="col-md-12 col-lg-4">
+                                    <div class="col-md-12 col-lg-2 sumery" >
                                         <div class="dash-widget">
-                                            <div class="circle-bar circle-bar3">
-                                                <div class="circle-graph3" data-percent="50">
-                                                    <img src="assets/img/icon-03.png" class="img-fluid" alt="Patient">
-                                                </div>
-                                            </div>
+                                            
                                             <div class="dash-widget-info">
-                                                <h6>Appoinments</h6>
-                                                <h3>85</h3>
-                                                <p class="text-muted">06, Apr 2019</p>
+                                                <h6>Cancel Requests</h6>
+                                                <h3 class="cancel">85</h3>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-lg-2 summery" >
+                                        <div class="dash-widget">
+                                           
+                                            <div class="dash-widget-info">
+                                                <h6>Reject Requests</h6>
+                                                <h3 class="reject">85</h3>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-lg-2 sumery" >
+                                        <div class="dash-widget">
+                                           
+                                            <div class="dash-widget-info">
+                                                <h6>Accept Requests</h6>
+                                                <h3 class="accept">85</h3>
+                                               
                                             </div>
                                         </div>
                                     </div>
@@ -112,17 +124,17 @@ if ($conn->affected_rows > 0) {
                         <div class="appointment-tab">
                             <ul class="nav nav-tabs nav-tabs-solid nav-tabs-rounded">
                                 <li class="nav-item mr-2">
-                                    <a class="nav-link active" href="#need_blood" data-toggle="tab">Need Blood</a>
+                                    <a class="nav-link tab-menu <?= ($need_blood_tab !== null)? "active": $need_blood_tab?>" href="#need_blood" data-toggle="tab" data-tab_option="need_blood">Need Blood</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#blood_donation" data-toggle="tab">Blood Donation</a>
+                                    <a class="nav-link tab-menu <?= ($blood_donation_tab !== null) ? $blood_donation_tab :"" ?>" href="#blood_donation" data-toggle="tab" data-tab_option="blood_donation">Blood Donation</a>
                                 </li>
                             </ul>
                             <!-- /Tab Menu -->
-                            <div class="tab-content" >
+                            <div class="tab-content">
 
                                 <!-- Need Blood Tab -->
-                                <div class="tab-pane show active" id="need_blood" >
+                                <div class="tab-pane  <?= ($need_blood_tab !== null)? "active": $need_blood_tab?>" id="need_blood">
                                     <div class="card card-table mb-0" style="height: 50vh">
                                         <div class="card-body">
                                             <div class="table-responsive">
@@ -198,188 +210,87 @@ if ($conn->affected_rows > 0) {
                                         </div>
                                     </div>
                                 </div>
-                                <!-- /Upcoming Appointment Tab -->
+                                <!-- /need blood Tab -->
 
-                                <!-- Today Appointment Tab -->
-                                <div class="tab-pane" id="blood_donation">
+                                <!-- blood donation Tab -->
+                                <div class="tab-pane <?= ($blood_donation_tab !== null) ? $blood_donation_tab :"" ?>" id="blood_donation">
                                     <div class="card card-table mb-0">
                                         <div class="card-body">
                                             <div class="table-responsive">
-                                                <table class="table table-hover table-center mb-0">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Patient Name</th>
-                                                            <th>Appt Date</th>
-                                                            <th>Purpose</th>
-                                                            <th>Type</th>
-                                                            <th class="text-center">Paid Amount</th>
-                                                            <th></th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <h2 class="table-avatar">
-                                                                    <a href="patient-profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/patients/patient6.jpg" alt="User Image"></a>
-                                                                    <a href="patient-profile.html">Elsie Gilley <span>#PT0006</span></a>
-                                                                </h2>
-                                                            </td>
-                                                            <td>14 Nov 2019 <span class="d-block text-info">6.00 PM</span></td>
-                                                            <td>Fever</td>
-                                                            <td>Old Patient</td>
-                                                            <td class="text-center">$300</td>
-                                                            <td class="text-right">
-                                                                <div class="table-action">
-                                                                    <a href="javascript:void(0);" class="btn btn-sm bg-info-light">
-                                                                        <i class="far fa-eye"></i> View
-                                                                    </a>
+                                                <?php
+                                                $query5 = $conn->query("SELECT * FROM blood_donate WHERE donar_id = $donar_id ORDER BY donate_id DESC");
+                                                if ($conn->affected_rows > 0) {
+                                                ?>
+                                                    <table class="table table-hover table-center mb-0 text-center">
+                                                        <thead>
 
-                                                                    <a href="javascript:void(0);" class="btn btn-sm bg-success-light">
-                                                                        <i class="fas fa-check"></i> Accept
-                                                                    </a>
-                                                                    <a href="javascript:void(0);" class="btn btn-sm bg-danger-light">
-                                                                        <i class="fas fa-times"></i> Cancel
-                                                                    </a>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <h2 class="table-avatar">
-                                                                    <a href="patient-profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/patients/patient7.jpg" alt="User Image"></a>
-                                                                    <a href="patient-profile.html">Joan Gardner <span>#PT0006</span></a>
-                                                                </h2>
-                                                            </td>
-                                                            <td>14 Nov 2019 <span class="d-block text-info">5.00 PM</span></td>
-                                                            <td>General</td>
-                                                            <td>Old Patient</td>
-                                                            <td class="text-center">$100</td>
-                                                            <td class="text-right">
-                                                                <div class="table-action">
-                                                                    <a href="javascript:void(0);" class="btn btn-sm bg-info-light">
-                                                                        <i class="far fa-eye"></i> View
-                                                                    </a>
+                                                            <tr>
+                                                                <th>Request Id</th>
+                                                                <th>Blood Group</th>
+                                                                <th>No of Unit(in ml)</th>
+                                                                <th>Date</th>
+                                                                <th>Status</th>
+                                                                <th class="text-center">Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <?php
+                                                            while ($row6 = $query5->fetch_assoc()) {
+                                                                $get_res = $conn->query("SELECT blood_group_name FROM blood_group WHERE blood_group_id = {$row6['blood_group']}");
+                                                                $blood_group = $get_res->fetch_object();
+                                                            ?>
+                                                                <tr>
+                                                                    <td><?= $row6['donate_id']; ?></td>
+                                                                    <td><?= $blood_group->blood_group_name; ?></td>
+                                                                    <td><?php if ($row6['no_of_unit'] === "0" || empty($row6['no_of_unit'])) {
+                                                                            echo "<span class='text-dark  p-2' style='font-size:14px'>Not Calculated</span>";
+                                                                        } else {
+                                                                            echo $row6['no_of_unit'];
+                                                                        } ?></td>
+                                                                    <td><?= $row6['donate_date']; ?></td>
+                                                                    <td>
+                                                                        <?php
+                                                                        if ($row6['status'] === "pending" || $row6['status'] === "Pending") {
+                                                                            echo "<a href='javascript:void(0);' class='btn btn-sm bg-warning'>
+                                                                {$row6['status']}
+                                                        </a>";
+                                                                        } else if ($row6['status'] === "cancel" || $row6['status'] === "rejected") {
+                                                                            echo "<a href='javascript:void(0);' class='btn btn-sm bg-danger-light'>
+                                                                {$row6['status']}
+                                                        </a>";
+                                                                        } else {
+                                                                            echo "<a href='javascript:void(0);' class='btn btn-sm bg-success'>
+                                                                {$row6['status']}
+                                                        </a>";
+                                                                        }
 
-                                                                    <a href="javascript:void(0);" class="btn btn-sm bg-success-light">
-                                                                        <i class="fas fa-check"></i> Accept
-                                                                    </a>
-                                                                    <a href="javascript:void(0);" class="btn btn-sm bg-danger-light">
-                                                                        <i class="fas fa-times"></i> Cancel
-                                                                    </a>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <h2 class="table-avatar">
-                                                                    <a href="patient-profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/patients/patient8.jpg" alt="User Image"></a>
-                                                                    <a href="patient-profile.html">Daniel Griffing <span>#PT0007</span></a>
-                                                                </h2>
-                                                            </td>
-                                                            <td>14 Nov 2019 <span class="d-block text-info">3.00 PM</span></td>
-                                                            <td>General</td>
-                                                            <td>New Patient</td>
-                                                            <td class="text-center">$75</td>
-                                                            <td class="text-right">
-                                                                <div class="table-action">
-                                                                    <a href="javascript:void(0);" class="btn btn-sm bg-info-light">
-                                                                        <i class="far fa-eye"></i> View
-                                                                    </a>
+                                                                        ?>
 
-                                                                    <a href="javascript:void(0);" class="btn btn-sm bg-success-light">
-                                                                        <i class="fas fa-check"></i> Accept
-                                                                    </a>
-                                                                    <a href="javascript:void(0);" class="btn btn-sm bg-danger-light">
-                                                                        <i class="fas fa-times"></i> Cancel
-                                                                    </a>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <h2 class="table-avatar">
-                                                                    <a href="patient-profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/patients/patient9.jpg" alt="User Image"></a>
-                                                                    <a href="patient-profile.html">Walter Roberson <span>#PT0008</span></a>
-                                                                </h2>
-                                                            </td>
-                                                            <td>14 Nov 2019 <span class="d-block text-info">1.00 PM</span></td>
-                                                            <td>General</td>
-                                                            <td>Old Patient</td>
-                                                            <td class="text-center">$350</td>
-                                                            <td class="text-right">
-                                                                <div class="table-action">
-                                                                    <a href="javascript:void(0);" class="btn btn-sm bg-info-light">
-                                                                        <i class="far fa-eye"></i> View
-                                                                    </a>
-
-                                                                    <a href="javascript:void(0);" class="btn btn-sm bg-success-light">
-                                                                        <i class="fas fa-check"></i> Accept
-                                                                    </a>
-                                                                    <a href="javascript:void(0);" class="btn btn-sm bg-danger-light">
-                                                                        <i class="fas fa-times"></i> Cancel
-                                                                    </a>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <h2 class="table-avatar">
-                                                                    <a href="patient-profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/patients/patient10.jpg" alt="User Image"></a>
-                                                                    <a href="patient-profile.html">Robert Rhodes <span>#PT0010</span></a>
-                                                                </h2>
-                                                            </td>
-                                                            <td>14 Nov 2019 <span class="d-block text-info">10.00 AM</span></td>
-                                                            <td>General</td>
-                                                            <td>New Patient</td>
-                                                            <td class="text-center">$175</td>
-                                                            <td class="text-right">
-                                                                <div class="table-action">
-                                                                    <a href="javascript:void(0);" class="btn btn-sm bg-info-light">
-                                                                        <i class="far fa-eye"></i> View
-                                                                    </a>
-
-                                                                    <a href="javascript:void(0);" class="btn btn-sm bg-success-light">
-                                                                        <i class="fas fa-check"></i> Accept
-                                                                    </a>
-                                                                    <a href="javascript:void(0);" class="btn btn-sm bg-danger-light">
-                                                                        <i class="fas fa-times"></i> Cancel
-                                                                    </a>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <h2 class="table-avatar">
-                                                                    <a href="patient-profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/patients/patient11.jpg" alt="User Image"></a>
-                                                                    <a href="patient-profile.html">Harry Williams <span>#PT0011</span></a>
-                                                                </h2>
-                                                            </td>
-                                                            <td>14 Nov 2019 <span class="d-block text-info">11.00 AM</span></td>
-                                                            <td>General</td>
-                                                            <td>New Patient</td>
-                                                            <td class="text-center">$450</td>
-                                                            <td class="text-right">
-                                                                <div class="table-action">
-                                                                    <a href="javascript:void(0);" class="btn btn-sm bg-info-light">
-                                                                        <i class="far fa-eye"></i> View
-                                                                    </a>
-
-                                                                    <a href="javascript:void(0);" class="btn btn-sm bg-success-light">
-                                                                        <i class="fas fa-check"></i> Accept
-                                                                    </a>
-                                                                    <a href="javascript:void(0);" class="btn btn-sm bg-danger-light">
-                                                                        <i class="fas fa-times"></i> Cancel
-                                                                    </a>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
+                                                                    </td>
+                                                                    <td class="text-right">
+                                                                        <div class="table-action">
+                                                                            <?php if ($row6['status'] === 'pending' || $row6['status'] === "Pending") { ?>
+                                                                                <button class="btn btn-sm bg-danger-light cancel_req" data-donation_id=<?php echo "{$row6['donate_id']}" ?>>
+                                                                                    Cancel
+                                                                                </button>
+                                                                            <?php } ?>
+                                                                            <a href="view_request.php?request='blood_donation'&id=<?= $row6['donate_id'] ?>" class="btn btn-sm bg-info-light">
+                                                                                <i class="far fa-eye"></i>
+                                                                            </a>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            <?php } ?>
+                                                        </tbody>
+                                                    </table>
+                                                <?php } else { ?>
+                                                    <p class="text-center py-3"><em>Not Found</em></p>
+                                                <?php } ?>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <!-- /Today Appointment Tab -->
+                                <!-- /blood donation Tab -->
 
                             </div>
                         </div>
