@@ -1,27 +1,13 @@
 <?php
-session_start();
+
 $page_title = "Donation List - Blood Bank";
 $active_page= "donation_list";
-// include the database
-// require_once("db.php");
-require_once("../blood_bank/private/initialization.php");
-$user_id = $_SESSION['user_id'];
-// we restricted visite the page without login
-// if user is not logged in then, we will redirect to the login page
-// if(empty($_SESSION['user_type']) && $_SESSION['user_type'] !== 'blood_bank' && empty($_SESSION['user_id'])){
-//     header("location:./");
-//     die;
-// }
-// to geting stock data
-// echo date("d-m-Y");
-// if("20-01-2023" === "20-01-2023"){echo "yes";}
-
-// // echo "<pre>";
-// // print_r($result->fetch_assoc());
-// die;
-
 require_once("../blood_bank/include/header.php");
 require_once("../blood_bank/include/sidebar.php");
+//********************************* */
+$user_id = $_SESSION['user_id'];
+
+
 
 ?>
 

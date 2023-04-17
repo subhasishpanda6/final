@@ -1,6 +1,11 @@
-<?php if (!defined("PAGE_ACCESS")) {
-    echo "<script> window.location.href = './' ;</script>";
-}
+
+<?php 
+define("page_access_permission",true);
+require_once("../app/init.php");
+
+// if (!defined("PAGE_ACCESS")) {
+//     echo "<script> window.location.href = './' ;</script>";
+// }
 ?>
 <!DOCTYPE html>
 <html lang="en">

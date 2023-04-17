@@ -1,3 +1,0 @@
-<?php
-		$conn =new mysqli('localhost', 'root', '' , 'hcm');
-?>

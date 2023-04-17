@@ -1,11 +1,10 @@
 <?php
 
-session_start();
 $page_title = "Request Need Blood - Blood Bank";
-
-require_once("../blood_bank/private/initialization.php");
-// include the database
-// require_once("db.php");
+$active_page ='need_blood';
+require_once("../blood_bank/include/header.php");
+require_once("../blood_bank/include/sidebar.php");
+//*********************************** */
 $user_id = $_SESSION['user_id'];
 
 // we restricted visite the page without login
@@ -20,9 +19,7 @@ $user_id = $_SESSION['user_id'];
 // echo "<pre>";
 // print_r($result->fetch_assoc());
 // die;
-require_once("../blood_bank/include/header.php");
-$active_page ='need_blood';
-require_once("../blood_bank/include/sidebar.php");
+
 ?>
 
 
@@ -71,7 +68,7 @@ require_once("../blood_bank/include/sidebar.php");
                             </thead>
                             <tbody>
                                 <?php
-                                        $need_blood_response = $conn->query("SELECT * FROM need_blood INNER JOIN patient_registration ON need_blood.patient_id = patient_registration.id  WHERE need_blood.request_status != 'accept' AND need_blood.request_status != 'reject' AND need_blood.request_status != 'cancel' ORDER BY need_blood.request_id DESC");
+                                        $need_blood_response = $conn->query("SELECT * FROM need_blood INNER JOIN patient_registration ON need_blood.patient_id = patient_registration.id  WHERE need_blood.request_status != 'accept' AND need_blood.request_status != 'reject' AND need_blood.request_status != 'cancel' AND need_blood.blood_bank = {$user_id} ORDER BY need_blood.request_id DESC");
                                         // donation id
                                       
                                         if($conn->affected_rows > 0){

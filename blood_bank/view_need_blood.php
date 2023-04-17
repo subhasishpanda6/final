@@ -1,24 +1,9 @@
 <?php
-session_start();
 $page_title = "View Request ";
-// include the database
-// require_once("db.php");
-// we restricted visite the page without login
-// if user is not logged in then, we will redirect to the login page
-// if(empty($_SESSION['user_type']) && $_SESSION['user_type'] !== 'blood_bank' && empty($_SESSION['user_id'])){
-//     header("location:./");
-//     die;
-// }
-
-$get_request_id = $_GET['id'];
-
-// $data_row = $donation_result->fetch_assoc();
-// echo "<pre>";
-// print_r($data_row);
-// die;
-require_once("../blood_bank/private/initialization.php");
 require_once("../blood_bank/include/header.php");
 require_once("../blood_bank/include/sidebar.php");
+$get_request_id = $_GET['id'];
+// require_once("../blood_bank/private/initialization.php");
 ?>
 
     <main id="main" class="main">
@@ -137,7 +122,7 @@ require_once("../blood_bank/include/sidebar.php");
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-start">
                                 <div class="ms-2 me-auto">
-                                    <div class="fw-bold">Blood Donate Date</div>
+                                    <div class="fw-bold">Date</div>
                                     <?= "{$data_row['delivery_date']}" ?>
                                 </div>
 

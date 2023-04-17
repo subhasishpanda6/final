@@ -1,28 +1,14 @@
 <?php
-session_start();
 $page_title = "Manage Donation - Blood Bank";
 $active_page= "manage_need_blood";
-// include the database
-// require_once("db.php");
-require_once("../blood_bank/private/initialization.php");
-$user_id = $_SESSION['user_id'];
-// we restricted visite the page without login
-// if user is not logged in then, we will redirect to the login page
-// if(empty($_SESSION['user_type']) && $_SESSION['user_type'] !== 'blood_bank' && empty($_SESSION['user_id'])){
-//     header("location:./");
-//     die;
-// }
-// to geting stock data
-// echo date("d-m-Y");
-// if("20-01-2023" === "20-01-2023"){echo "yes";}
-
-// // echo "<pre>";
-// // print_r($result->fetch_assoc());
-// die;
-
 require_once("../blood_bank/include/header.php");
 require_once("../blood_bank/include/sidebar.php");
-
+// ******************
+$user_id = $_SESSION['user_id'];
+$page_number = 1;
+if(isset($_GET['page'])){
+    $page_number = $_GET['page'];
+}
 ?>
 
 
@@ -68,20 +54,44 @@ require_once("../blood_bank/include/sidebar.php");
                             </thead>
                             <tbody>
                                 <?php
-                                        // $donation_result = $conn->query("SELECT * FROM blood_donate INNER JOIN donar ON blood_donate.donar_id = donar.donar_id");
-                                        $need_blood_res = $conn->query("SELECT * FROM need_blood INNER JOIN patient_registration ON need_blood.patient_id = patient_registration.id  WHERE need_blood.request_status != 'pending' AND need_blood.request_status != 'Pending' ORDER BY need_blood.request_id DESC");
-                                        if($need_blood_res->num_rows > 0){
-                                       
-                                        while($need_blood_row = $need_blood_res->fetch_assoc()){
-                                            $blood_group = $conn->query("SELECT * FROM blood_group WHERE blood_group_id = {$need_blood_row['blood_group']}");
-                                            $blood_gr_name = $blood_group->fetch_object()->blood_group_name;
+                                $param = [
+                                    'conn' =>$conn,
+                                    'table' => 'need_blood',
+                                    'join' => [
+                                        [
+                                            'type'=> 'INNER JOIN',
+                                            'table' => 'patient_registration',
+                                            'on'=> ['patient_id','id']
+                                        ],
+                                        [
+                                            'type'=> 'INNER JOIN',
+                                            'table' => 'blood_group',
+                                            'on'=> ['blood_group','blood_group_id']
+                                        ]
+                                    ],
+                                    'pagination' => [
+                                        'limit' => 2,
+                                        'page_number' => $page_number
+                                    ],
+                                    'where' => "need_blood.request_status != 'pending' AND need_blood.request_status != 'Pending' AND need_blood.blood_bank = {$user_id}",
+                                    'order_by' => [
+                                        'col' => 'request_id',
+                                        'order'=> 'DESC'
+                                    ]
+                                ];
+                                $need_blood_res = getPaginationResults($param);
+                               
+                                if(count( $need_blood_res['results'])){
+                                
+                                foreach($need_blood_res['results'] as $need_blood_row){
+                                           
                                            
                                     ?>
                                 <tr class="text-center">
                                     <td scope="row"><?= $need_blood_row['request_id'] ?></td>
                                     <td><?= $need_blood_row['name'] ?></td>
-                                    <td><?= $blood_gr_name ?></td>
-                                    <td><?= $need_blood_row['no_of_unit'] ?></td>
+                                    <td><?= $need_blood_row['name'] ?></td>
+                                    <td><?= $need_blood_row['blood_group_name'] ?></td>
                                     <td><?php if(empty($need_blood_row['request_status'])){echo "<span class='badge rounded-pill bg-dark'>no action</span>";}else if($need_blood_row['request_status'] === 'accept'){ echo "<span class='badge bg-success'>{$need_blood_row['request_status']}</span>";}else if($need_blood_row['request_status'] === 'reject'){echo "<span class='badge bg-danger'>{$need_blood_row['request_status']}</span>";}else if($need_blood_row['request_status'] === 'cancel'){ echo "<span class='badge bg-secondary'>{$need_blood_row['request_status']}</span>";}?>
                                     </td>
                                     <td>
@@ -108,6 +118,14 @@ require_once("../blood_bank/include/sidebar.php");
                         </table>
                         </div>
                         <!-- End small tables -->
+                        <?php 
+                            $param = [
+                                'page'=>'page',
+                                'page_number' => $page_number,
+                                'total_page'=>  $need_blood_res['total_pages']
+                            ];
+                            page($param);
+                            ?>
                     </div>
                 </div>
             </div>

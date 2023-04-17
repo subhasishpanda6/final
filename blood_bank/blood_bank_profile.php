@@ -1,22 +1,11 @@
 <?php
-session_start();
 $page_title = "Profile - Blood Bank";
  $active_page ="profile";
-
-// include the database
-// require_once("db.php");
-// // we restricted visite the page without login
-// // if user is not logged in then, we will redirect to the login page
-// if(empty($_SESSION['user_type']) && $_SESSION['user_type'] !== 'blood_bank' && empty($_SESSION['user_id'])){
-//     header("location:./");
-//     die;
-// }
-// to get all data about this user(blood bank) using session id
-require_once("../blood_bank/private/initialization.php");
-$result = $conn->query("SELECT * FROM blood_bank_registration WHERE blood_bank_id = {$_SESSION['user_id']}");
-$data = $result->fetch_assoc();
 require_once("../blood_bank/include/header.php");
 require_once("../blood_bank/include/sidebar.php");
+// ********************************************************************
+$result = $conn->query("SELECT * FROM blood_bank_registration WHERE blood_bank_id = {$_SESSION['user_id']}");
+$data = $result->fetch_assoc();
 ?>
 <!--  -->
 

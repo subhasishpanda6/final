@@ -1,22 +1,14 @@
 <?php
-session_start();
 $page_title = "Donar Profile - Blood Bank";
-// include the database
-// require_once("db.php");
-// we restricted visite the page without login
-// if user is not logged in then, we will redirect to the login page
-// if(empty($_SESSION['user_type']) && $_SESSION['user_type'] !== 'blood_bank' && empty($_SESSION['user_id'])){
-//     header("location:./");
-//     die;
-// }
-
-require_once("../blood_bank/private/initialization.php");
-$get_donnar_id = $_GET['id'];
-// to get all data about this user(blood bank) using session id
-$result = $conn->query("SELECT * FROM donar WHERE donar_id = $get_donnar_id");
-$data = $result->fetch_assoc();
 require_once("../blood_bank/include/header.php");
 require_once("../blood_bank/include/sidebar.php");
+//******************************************************** */
+$get_donnar_id = $_GET['id'];
+// to get all data about this user(blood bank) using session id
+// $result = $conn->query("SELECT * FROM donar WHERE donar_id = $get_donnar_id");
+// $data = $result->fetch_assoc();
+// $result = $conn->query("SELECT * FROM donar WHERE donar_id = $get_donnar_id");
+
 ?>
 
 <main id="main" class="main">
@@ -39,7 +31,19 @@ require_once("../blood_bank/include/sidebar.php");
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Donar Information</h5>
-
+                        <?php
+                            $param = [
+                                'conn' => $conn,
+                                'table' => 'donar',
+                                'where' => "donar_id = $get_donnar_id",
+                                'join' => [
+                                    'type' => 'INNER JOIN',
+                                    'table' => 'blood_group',
+                                    'on' => ['donar_blood_group_id','blood_group_id']
+                                ]
+                            ];
+                            $data= select($param);
+                        ?>
                         <!-- List group with custom content -->
                         <ul class="list-group">
                             <li class="list-group-item d-flex justify-content-between align-items-start">
@@ -86,16 +90,8 @@ require_once("../blood_bank/include/sidebar.php");
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-start">
                                 <div class="ms-2 me-auto">
-                                    <?php
-                                    $blood_grp_res = $conn->query("SELECT blood_group_name FROM blood_group WHERE blood_group_name = {$data['donar_blood_group']}");
-                                    $blood_group = "None";
-                                    if ($conn->affected_rows > 0) {
-                                        $blood_group_row = $blood_grp_res->fetch_assoc();
-                                        $blood_group = $blood_group_row['blood_group_name'];
-                                    }
-                                    ?>
-                                    <div class="fw-bold">Blood Group</div>
-                                    <?= "{$blood_group}" ?>
+                                <div class="fw-bold">Blood_Group</div>
+                                    <?= "{$data['blood_group_name']}" ?>
                                 </div>
 
                             </li>

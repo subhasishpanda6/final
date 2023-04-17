@@ -358,33 +358,36 @@ Version      : 1.0
 	// $(window).scroll(animateElements);
 	// 
 
+	// var pageNo = getParamValues("page");
 	$(".tab-menu").on("click",function(){
 		var tabOption = $(this).data("tab_option");
 		if(tabOption === "need_blood"){
 			ChangeUrl( 'blood_bank_dashboard.php?tab=need_blood');
-
+			// if(pageNo === null){
+			// ChangeUrl( 'blood_bank_dashboard.php?tab=need_blood');
+			// }else{
+			// 	ChangeUrl( `blood_bank_dashboard.php?tab=need_blood&page=${pageNo}`);
+			// }
 		}else{
 			ChangeUrl( 'blood_bank_dashboard.php?tab=blood_donation');
 		}
-		// getParamValues();
 	});
+
+	// $(".page-no").on("click",function(){
+	// 	var page_no = $(this).data("page");
+	// 	var getTab = getParamValues("tab");
+	// 	ChangeUrl( `blood_bank_dashboard.php?tab=${getTab}&page`);
+	// });
 	
-	function ChangeUrl( url) {
-		if (typeof (history.pushState) != "undefined") {
-			// var obj = { Url: url };
-            history.pushState("", "", url);
-        }
+	// function ChangeUrl( url) {
+	// 	if (typeof (history.pushState) != "undefined") { 
+	// 		// var obj = { Url: url };
+    //         history.pushState("", "", url);
+    //     }
 
-    }
+    // }
 
-	function getParamValues(){
-		// console.log(window.location.search);
-		var meyKeyValues= window.location.search;
-		var urlParam = new URLSearchParams(meyKeyValues);
-		var paramValue = urlParam.get('tab');
-		return paramValue;
-	}
-
+	
 	// function activeTab(tab){
 	// }
 	// $(".tab-menu").on("click",function(){
@@ -404,3 +407,11 @@ Version      : 1.0
 })(jQuery);
 
 
+
+		// function getParamValues(){
+		// 	// console.log(window.location.search);
+		// 	var meyKeyValues= window.location.search;
+		// 	var urlParam = new URLSearchParams(meyKeyValues);
+		// 	var paramValue = urlParam.get('tab');
+		// 	return paramValue;
+		// }

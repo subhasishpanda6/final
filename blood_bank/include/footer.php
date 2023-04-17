@@ -1,7 +1,7 @@
 <?php 
-if(!defined("PAGE_ACCESS")){
-   echo "<script> window.location.href = './' ;</script>";
-} 
+// if(!defined("PAGE_ACCESS")){
+//    echo "<script> window.location.href = './' ;</script>";
+// } 
 ?>
 <!-- ======= Footer ======= -->
 
@@ -88,13 +88,14 @@ $(document).ready(function() {
                     unit:unitVal
                 },
                 success: function(e) {
-                    // location.reload();
+                  
                   if(e === "insufficent"){
                         warnMsg("insufficent blood");
                     }else{
                         success("Request accepted");
                         location.reload();
                     }
+                // console.log(e);
                 }
             });
 

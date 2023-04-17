@@ -1,9 +1,12 @@
 <?php
-session_start();
 $page_title = "Stock - Blood Bank";
+$active_page= "stock";
+require_once("../blood_bank/include/header.php");
+require_once("../blood_bank/include/sidebar.php");
+//*************************** */
 // include the database
 // require_once("db.php");
-require_once("../blood_bank/private/initialization.php");
+// require_once("../blood_bank/private/initialization.php");
 $user_id = $_SESSION['user_id'];
 // we restricted visite the page without login
 // if user is not logged in then, we will redirect to the login page
@@ -17,9 +20,7 @@ $result = $conn->query("SELECT * FROM blood_bank_stock INNER JOIN blood_group ON
 // echo "<pre>";
 // print_r($result->fetch_assoc());
 // die;
-require_once("../blood_bank/include/header.php");
-$active_page= "stock";
-require_once("../blood_bank/include/sidebar.php");
+
 
 ?>
 

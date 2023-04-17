@@ -1,6 +1,7 @@
-<?php if(!defined("PAGE_ACCESS")){
-   echo "<script> window.location.href = './' ;</script>";
-} 
+<?php 
+// if(!defined("PAGE_ACCESS")){
+//    echo "<script> window.location.href = './' ;</script>";
+// } 
 ?>
 <!-- ======= Sidebar ======= -->
 <aside id="sidebar" class="sidebar">

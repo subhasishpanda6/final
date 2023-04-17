@@ -1,6 +1,7 @@
 
 <?php $page = "home";
 $path = __DIR__;
+// define("page_access_permission",true);
 include_once("include/header.php") ?>
       <!-- Home Banner -->
       <section class="section section-search">

@@ -1,27 +1,14 @@
 <?php
-session_start();
 $page_title = "Manage Donation - Blood Bank";
 $active_page= "manage_donate";
-// include the database
-// require_once("db.php");
-require_once("../blood_bank/private/initialization.php");
-$user_id = $_SESSION['user_id'];
-// we restricted visite the page without login
-// if user is not logged in then, we will redirect to the login page
-// if(empty($_SESSION['user_type']) && $_SESSION['user_type'] !== 'blood_bank' && empty($_SESSION['user_id'])){
-//     header("location:./");
-//     die;
-// }
-// to geting stock data
-// echo date("d-m-Y");
-// if("20-01-2023" === "20-01-2023"){echo "yes";}
-
-// // echo "<pre>";
-// // print_r($result->fetch_assoc());
-// die;
-
 require_once("../blood_bank/include/header.php");
 require_once("../blood_bank/include/sidebar.php");
+// **********************************
+$user_id = $_SESSION['user_id'];
+$page_number = 1;
+if(isset($_GET['page'])){
+    $page_number = $_GET['page'];
+}
 
 ?>
 
@@ -68,20 +55,44 @@ require_once("../blood_bank/include/sidebar.php");
                                 </tr>
                             </thead>
                                 <?php
-                                        // $donation_result = $conn->query("SELECT * FROM blood_donate INNER JOIN donar ON blood_donate.donar_id = donar.donar_id");
-                                        $donation_result = $conn->query("SELECT * FROM blood_donate INNER JOIN donar ON blood_donate.donar_id = donar.donar_id WHERE blood_donate.status != 'pending' AND blood_donate.status != 'Pending' AND blood_donate.donation_status != 'Not donated yet' ORDER BY blood_donate.donate_id DESC");
-                                        if($donation_result->num_rows > 0){
+                                $param = [
+                                    'conn' =>$conn,
+                                    'table' => 'blood_donate',
+                                    'join' => [
+                                        [
+                                            'type'=> 'INNER JOIN',
+                                            'table' => 'donar',
+                                            'on'=> ['donar_id','donar_id']
+                                        ],
+                                        [
+                                            'type'=> 'INNER JOIN',
+                                            'table' => 'blood_group',
+                                            'on'=> ['blood_group','blood_group_id']
+                                        ]
+                                    ],
+                                    'pagination' => [
+                                        'limit' => 2,
+                                        'page_number' => $page_number
+                                    ],
+                                    'where' => "blood_donate.status != 'pending' AND blood_donate.blood_bank = {$user_id} ",
+                                    'order_by' => [
+                                        'col' => 'donate_id',
+                                        'order'=> 'DESC'
+                                    ]
+                                ];
+                                $donation = getPaginationResults($param);
+                                        if(count($donation['results'])){
                                      ?>
                                      
                             <tbody>
                             <?php  
-                                        while($donation_row = $donation_result->fetch_assoc()){
+                                        foreach($donation['results'] as $donation_row){
                                            
                                     ?>
                                 <tr class="text-center">
                                     <td scope="row"><?= $donation_row['donate_id'] ?></td>
                                     <td><?= $donation_row['donar_name'] ?></td>
-                                    <td><?= $donation_row['blood_group'] ?></td>
+                                    <td><?= $donation_row['blood_group_name'] ?></td>
                                     <td><?= $donation_row['no_of_unit'] ?></td>
                                     <td><?php if(empty($donation_row['status'])){echo "<span class='badge rounded-pill bg-dark'>no action</span>";}else if($donation_row['status'] === 'accept'){ echo "<span class='badge bg-success'>{$donation_row['status']}</span>";}else if($donation_row['status'] === 'reject'){echo "<span class='badge bg-danger'>{$donation_row['status']}</span>";}else if($donation_row['status'] === 'cancel'){ echo "<span class='badge bg-secondary'>{$donation_row['status']}</span>";}?>
                                     </td>
@@ -110,6 +121,14 @@ require_once("../blood_bank/include/sidebar.php");
                                    
                         
                         </div>
+                        <?php 
+                            $param = [
+                                'page'=>'page',
+                                'page_number' => $page_number,
+                                'total_page'=>  $donation['total_pages']
+                            ];
+                            page($param);
+                            ?>
                         <!-- End small tables -->
                     </div>
                 </div>

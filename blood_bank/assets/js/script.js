@@ -59,15 +59,15 @@ function setTwelveHour(hour) {
 // it will return currrent time
 
 //select the elememt from html and show the date and time
-let forTimeDisplay = document.querySelector(".time-display");
-let forDateDisplay = document.querySelector(".date-display");
+// let forTimeDisplay = document.querySelector(".time-display");
+// let forDateDisplay = document.querySelector(".date-display");
 
-//for date
-forDateDisplay.innerHTML = `<b>${todayDate()}</b>`;
+// //for date
+// forDateDisplay.innerHTML = `<b>${todayDate()}</b>`;
 
-setInterval(function () {
-  forTimeDisplay.innerHTML = new Date().toLocaleTimeString();
-}, 1000);
+// setInterval(function () {
+//   forTimeDisplay.innerHTML = new Date().toLocaleTimeString();
+// }, 1000);
 
 
 // // time sloats

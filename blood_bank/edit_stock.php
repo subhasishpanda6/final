@@ -1,27 +1,11 @@
 <?php
-session_start();
 $page_title = "Edit Stock - Blood Bank";
+$active_page = "stock";
+require_once("../blood_bank/include/header.php");
+require_once("../blood_bank/include/sidebar.php");
+//***************************** */
 $id = intval($_GET['id']);
 $_SESSION['stock_id'] = $id;
-// include the database
-// require_once("db.php");
-require_once("../blood_bank/private/initialization.php");
-// we restricted visite the page without login
-// if user is not logged in then, we will redirect to the login page
-// if(empty($_SESSION['user_type']) && $_SESSION['user_type'] !== 'blood_bank' && empty($_SESSION['user_id'])){
-//     header("location:./");
-//     die;
-// }
-// to geting stock data
-
-
-// echo "<pre>";
-// print_r($result->fetch_assoc());
-// die;
-require_once("../blood_bank/include/header.php");
-$active_page = "stock";
-require_once("../blood_bank/include/sidebar.php");
-
 ?>
 
 <main id="main" class="main">

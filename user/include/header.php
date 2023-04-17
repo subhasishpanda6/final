@@ -1,13 +1,20 @@
 <?php
-session_start();
-ob_start();
-// return root of this project
-function getActualFilePath(){
+function getFilePath(){
 	$path = __DIR__;
     $startPoint = strpos($path,"\user");
     $endPoint = intval($startPoint)+1;
     return substr($path,0,$endPoint);
 }
+define("page_access_permission",true);
+include_once(getFilePath()."app/init.php");
+// if(!defined("page_access_permission")){
+// 	restrict_permission();
+// 	die;
+// }
+// echo getFilePath();
+// session_start();
+// ob_start();
+// return root of this project
 
 // return for userLocation only
 function userLocation(){ 
@@ -18,9 +25,9 @@ function userLocation(){
 }
 
 // ------------------------------
-include_once(getActualFilePath()."app/db/db.php");
-include_once(getActualFilePath()."app/function.php");
-define('CSS_PATH', 'assets/css/style.css');
+// include_once(getActualFilePath()."app/db/db.php");
+
+// define('CSS_PATH', 'assets/css/style.css');
 $res;
 if(isset($_SESSION['patient_name'])){
 	$get_patient_image = $conn->query("SELECT * FROM patient_registration WHERE id= {$_SESSION['patient_id']} ");

@@ -62,3 +62,21 @@ function popup(msg){
   resPopUp.classList.add("active");
   resPopupMsg.innerText = msg;
 }
+
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+function ChangeUrl( url) {
+  if (typeof (history.pushState) != "undefined") {
+    // var obj = { Url: url };
+          history.pushState("", "", url);
+      }
+
+  }
+
+///>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  function getParamValues(param){
+    // console.log(window.location.search);
+    var meyKeyValues= window.location.search;
+    var urlParam = new URLSearchParams(meyKeyValues);
+    var paramValue = urlParam.get(param);
+    return paramValue;
+  }

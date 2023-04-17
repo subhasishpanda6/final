@@ -1,5 +1,6 @@
 <?php
-     session_start();
+define("page_access_permission",true);
+require_once("../app/init.php");
      if(isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'blood_bank'){
         header("location:blood_bank_dashboard.php");
             die;
@@ -18,7 +19,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Pages / Login - NiceAdmin Bootstrap Template</title>
+    <title>Login - Blood Bank</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -51,7 +52,7 @@
     <main>
         <div class="container">
             <?php
-            // start login session
+            
         if (isset($_POST['login'])) { 
             require_once("db.php");
             //get email and password from login form
@@ -62,6 +63,7 @@
             $sql->bind_param("s",$email);      
             $sql->execute();
             $result = $sql->get_result();
+            $_SESSION['EMAIL'] = $email;
             // to check is email exist or not
             if ($result->num_rows > 0){
                 // yes,email exits
@@ -76,11 +78,13 @@
                     $_SESSION["user_email"] = $row['email'];
                     $_SESSION["user_img"] = $row['img'];
                     session_regenerate_id(true);
+                    unset($_SESSION['EMAIL']);
+                    unset($_SESSION['msg']);
                     header("location:blood_bank_dashboard.php");
                     die;
                 }else{
                     // if no
-                    $_SESSION['msg'] = "invalid";
+                    $_SESSION['msg'] = "invalid username and password";
                     header('Location: ./');
                     die;
                     }
@@ -120,7 +124,7 @@
                                     <form action="" class="row g-3" method='POST'>
 
                                         <div class="form-group">
-                                            <input class="form-control" type="text" placeholder="Email" name="email">
+                                            <input class="form-control" type="text" placeholder="Email" name="email" value="<?= isset($_SESSION['EMAIL']) ? $_SESSION['EMAIL'] : "" ?>">
                                         </div>
                                         <div class="form-group">
                                             <input class="form-control" type="text" placeholder="Password"
@@ -135,7 +139,7 @@
                                             <p class="small mb-0">Don't have account? <a
                                                     href="pages-register.html">Create an account</a></p>
                                         </div> -->
-                                        <?php if(isset($_SESSION['msg'])){ echo "<p class='text-danger'>{$_SESSION['msg']}</p>"; unset($_SESSION['msg']);} ?>
+                                        <?php if(isset($_SESSION['msg'])){ echo "<p class='text-danger'>{$_SESSION['msg']}</p>";} ?>
                                     </form>
 
                                 </div>

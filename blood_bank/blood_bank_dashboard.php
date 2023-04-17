@@ -1,12 +1,12 @@
 <?php
-session_start();
-$bb_id = $_SESSION["user_id"];
-// PAGE TITLE
-$page_title = "Dashboard - Blood Bank";
+//************************* */
+$page_title = "Dashboard ";
 $active_page = "dashboard";
-require_once("../blood_bank/private/initialization.php");
 require_once("../blood_bank/include/header.php");
 require_once("../blood_bank/include/sidebar.php");
+$bb_id = $_SESSION["user_id"];
+//***************************** */
+
 ?>
 <main id="main" class="main">
 
@@ -24,6 +24,15 @@ require_once("../blood_bank/include/sidebar.php");
         <div class="row">
             <!-- stock Card -->
             <?php 
+            // select([
+            //     'table'=>"donar",
+            //     'join'=>[
+            //         'type'=>"INNER JOIN",
+            //         'table' => 'blood_group',
+            //         'on' => ['blood_gruop_id','blood_group_id']
+            //     ],
+            //     'where' => ['blood_bank_id = blood_bank']
+            // ]);
             $stock = $conn->query("SELECT * FROM blood_bank_stock INNER JOIN blood_group ON blood_bank_stock.blood_group_id = blood_group.blood_group_id WHERE blood_bank_stock.user_id = $bb_id");
            while( $result = $stock->fetch_object()){
              ?>

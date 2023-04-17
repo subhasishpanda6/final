@@ -1,17 +1,6 @@
 <?php
-session_start();
-require_once("../blood_bank/private/initialization.php");
-//we restricted visite the page without login
-// if user is not logged in then, we will redirect to the login page
-// if(empty($_SESSION['user_type']) && $_SESSION['user_type'] !== 'blood_bank' && empty($_SESSION['user_id'])){
-//     header("location:./");
-//     die;
-// }
-
-// echo "<pre>";
-// print_r($_POST);
-// print_r($_GET);
-
+define("page_access_permission",true);
+require_once("../app/init.php");
 
 
 // user id

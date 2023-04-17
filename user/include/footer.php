@@ -200,6 +200,7 @@
     <script src="<?php echo BASE_URL ?>assets/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
         <script src="<?php echo BASE_URL ?>assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
 
+        <script src="<?php echo BASE_URL ?>assets/js/custom.js"></script>
     <!-- Slick JS -->
     <script src="<?php echo BASE_URL ?>assets/js/slick.js"></script>
 
@@ -243,6 +244,30 @@
         }
     });
   });
+function updataData(totalReq,accept,cancel,reject,pending){
+  $(".total").text(totalReq);
+  $(".cancel").text(cancel);
+  $(".reject").text(reject);
+  $(".accept").text(accept);
+  $(".pending").text(pending);
+}
+  $(".tab-menu").on("click",function(){
+		var tabOption = getParamValues("tab");
+		$.ajax({
+                url: "tab_result.php",
+                type: "POST",
+                data: {
+                   value : tabOption
+                },
+                success: function(e) {
+                    // location.reload();
+                    var data = $.parseJSON(e);
+                    updataData(data['total_request'],data['accept'],data['cancel'],data['reject'],data['pending']);
+                }
+            });
+   
+		// getParamValues();
+	});
 
   if ( window.history.replaceState ) {
   window.history.replaceState( null, null, window.location.href );

@@ -1,12 +1,13 @@
 <?php
-session_start();
+// session_start();
 function getActualFilePath(){
 	$path = __DIR__;
     $startPoint = strpos($path,"\user");
     $endPoint = intval($startPoint)+1;
     return substr($path,0,$endPoint);
 }
-include_once(getActualFilePath()."app/db/db.php");
+// include_once(getActualFilePath()."app/db/db.php");
+include_once(getActualFilePath()."app/init.php");
 if(isset($_POST['reason']) && $_POST['reason']==="cancel"){
 
     $status = "cancel";

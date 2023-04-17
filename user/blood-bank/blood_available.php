@@ -1,5 +1,7 @@
-<?php $page = "blood_bank";
+<?php 
+$page = "blood_bank";
 $path = __DIR__;
+// define("page_access_permission",true);
 include_once("../include/header.php");
 ?>
 <!-- Page Content -->
@@ -7,24 +9,6 @@ include_once("../include/header.php");
     <div class="container-fluid">
         <div class="row">
             <?php $get_blood_banks = $conn->query("SELECT * FROM blood_bank_registration");
-            //$get_blood_banks = $conn->query("SELECT * FROM blood_bank_stock INNER JOIN blood_bank_registration ON blood_bank_stock.user_id = blood_bank_registration.blood_bank_id  INNER JOIN blood_group ON blood_group.blood_group_id = blood_bank_stock.blood_group_id");
-            // <?php $get_blood_banks = $conn->query("SELECT * FROM blood_bank_registration INNER JOIN blood_bank_stock ON blood_bank_registration.blood_bank_id = blood_bank_stock.user_id INNER JOIN blood_group ON blood_group.blood_group_id = blood_bank_stock.blood_group_id");
-                // blood_bank_name
-                // address
-                // city
-                // pincode
-                // blood_group_name
-                // echo "<pre>";
-                // // $r = $get_blood_banks->fetch_all(MYSQLI_ASSOC);
-                // // print_r($r);
-                // while($res = $get_blood_banks->fetch_object()){
-                //     // print_r($res);
-                //     $te = $conn->query("SELECT * FROM blood_bank_registration WHERE blood_bank_id = $res->user_id");
-                //     print_r($te->fetch_object());
-                // }
-                // die;
-                // asort($r);
-                // print_r($r);
                 while($row = $get_blood_banks->fetch_assoc()){
                     // asort($row);
                     $blood_available_res = $conn->query("SELECT * FROM blood_bank_stock INNER JOIN blood_group ON blood_group.blood_group_id = blood_bank_stock.blood_group_id WHERE blood_bank_stock.user_id = {$row['blood_bank_id']}");

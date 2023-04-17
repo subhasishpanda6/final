@@ -1,9 +1,9 @@
 <?php
-// require_once("../blood_bank/private/initialization.php");
-session_start();
+define("page_access_permission",true);
+require_once("../app/init.php");
 $_SESSION["user_id"];
 if(isset($_POST['reason']) && $_POST['reason']==="accept"){
-    require_once("db.php");
+   
     $status = "accept";
     $donation_id = $_POST['donation_id'];
     $response = $conn->prepare("UPDATE blood_donate SET status=? WHERE donate_id = ?");
@@ -15,7 +15,7 @@ if(isset($_POST['reason']) && $_POST['reason']==="accept"){
     $conn->close();
 }
 if(isset($_POST['reason']) && $_POST['reason']==="reject"){
-    require_once("db.php");
+   
     $status = "reject";
     $donation_status = 'Not donated';
     $donation_id = $_POST['donation_id'];
@@ -28,7 +28,7 @@ if(isset($_POST['reason']) && $_POST['reason']==="reject"){
     $conn->close();
 }
 if(isset($_POST['reason']) && $_POST['reason']==="donated"){
-    require_once("db.php");
+    
     $donation_status = 'donated';
     $donation_id = $_POST['donation_id'];
     $response = $conn->prepare("UPDATE blood_donate SET donation_status=? WHERE donate_id = ?");
@@ -40,7 +40,7 @@ if(isset($_POST['reason']) && $_POST['reason']==="donated"){
     $conn->close();
 }
 if(isset($_POST['reason']) && $_POST['reason']==="not_donated"){
-    require_once("db.php");
+   
     $donation_status = 'Not donated';
     $donation_id = $_POST['donation_id'];
     $response = $conn->prepare("UPDATE blood_donate SET donation_status=? WHERE donate_id = ?");
@@ -53,7 +53,7 @@ if(isset($_POST['reason']) && $_POST['reason']==="not_donated"){
 }
 // need blood
 if(isset($_POST['for'])  && $_POST['for'] === 'need_blood' && $_POST['status'] === 'accept'){
-    require_once("db.php");
+   
     $status = "accept";
     $request_id = $_POST['request_id'];
     // get blood stock
@@ -85,7 +85,7 @@ if(isset($_POST['for'])  && $_POST['for'] === 'need_blood' && $_POST['status'] =
    
 }
 if(isset($_POST['for'])  && $_POST['for'] === 'need_blood' && $_POST['status'] === 'reject'){
-    require_once("db.php");
+    
     $status = "reject";
     $request_id = $_POST['request_id'];
     $response = $conn->prepare("UPDATE need_blood SET request_status=? WHERE request_id = ?");

@@ -1,11 +1,9 @@
 <?php
-
-session_start();
 $page_title = "Request Blood Donation - Blood Bank";
-
-require_once("../blood_bank/private/initialization.php");
-// include the database
-// require_once("db.php");
+$active_page ='donate_req';
+require_once("../blood_bank/include/header.php");
+require_once("../blood_bank/include/sidebar.php");
+//*********************** */
 $user_id = $_SESSION['user_id'];
 
 // we restricted visite the page without login
@@ -20,9 +18,7 @@ $user_id = $_SESSION['user_id'];
 // echo "<pre>";
 // print_r($result->fetch_assoc());
 // die;
-require_once("../blood_bank/include/header.php");
-$active_page ='donate_req';
-require_once("../blood_bank/include/sidebar.php");
+
 ?>
 
 
